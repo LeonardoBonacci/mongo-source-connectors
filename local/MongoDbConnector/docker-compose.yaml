@@ -76,7 +76,9 @@ services:
       - kafka
 
   mongodb:
-    image: quay.io/debezium/example-mongodb:${DEBEZIUM_VERSION}
+    image: quickstart-mongo
+    build:
+      context: mongo
     hostname: mongodb
     ports:
       - 27017:27017
@@ -85,7 +87,7 @@ services:
       - MONGODB_PASSWORD=dbz
     networks:
       - my-network
-      
+
 networks:
   my-network:
     name: mongo-outbox-network
