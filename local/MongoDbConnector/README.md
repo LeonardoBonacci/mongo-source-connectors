@@ -1,4 +1,4 @@
-# Outbox Pattern with MongoDB
+# Debezium Outbox Pattern with MongoDB
 
 ```shell
 # Start the topology as defined in https://debezium.io/documentation/reference/stable/tutorial.html
@@ -21,18 +21,22 @@ s.getDatabase("quickstart").sampleData.find()
 docker run --tty --rm \
     --network mongo-outbox-network \
     quay.io/debezium/tooling:1.2 \
-    kafkacat -b kafka:9092 -C -o beginning -q \
-    -f "{\"key\":%k, \"headers\":\"%h\"}\n%s\n" \
-    -t Foo.events
-
-docker run --tty --rm \
-    --network mongo-outbox-network \
-    quay.io/debezium/tooling:1.2 \
     kafkacat -b kafka:9092 -L
 
 # Shut down
 docker-compose down
 docker-compose exec connect curl -X DELETE http://connect:8083/connectors/outbox-connector
+```
+
+```
+... % docker run --tty --rm \
+    --network mongo-outbox-network \
+    quay.io/debezium/tooling:1.2 \
+    kafkacat -b kafka:9092 -C -o beginning -q \
+    -f "{\"key\":%k, \"headers\":\"%h\"}\n%s\n" \
+    -t Foo.events
+{"key":000000000000000000000001, "headers":"id=62b0c423b70eec8c787fb66a,uber-trace-id=9ab2937eeb807d11:9ab2937eeb807d11:0:1"}
+Struct{_id=000000000000000000000001,hello=world}
 ```
 
 ```
