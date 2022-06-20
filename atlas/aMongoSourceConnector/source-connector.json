@@ -1,0 +1,16 @@
+{
+  "name": "mongo-source",
+  "config": {
+    "connector.class":"com.mongodb.kafka.connect.MongoSourceConnector",
+    "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": false,
+    "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": false,
+    "connection.uri": "mongodb+srv://user:password@cluster0.dvrwh.mongodb.net/foo",
+    "database":"foo",
+    "collection":"bar",
+    "publish.full.document.only": true,
+    "output.format.key": "schema",
+    "output.schema.key": "{ \"type\": \"record\", \"name\": \"keySchema\", \"fields\" : [ { \"name\": \"documentKey\", \"type\": [\"string\", \"null\"] } ] }"
+  }
+}
