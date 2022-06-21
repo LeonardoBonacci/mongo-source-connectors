@@ -1,0 +1,21 @@
+{
+    "name": "outbox-connector",
+    "config": {
+        "connector.class" : "io.debezium.connector.mongodb.MongoDbConnector",
+        "tasks.max" : "1",
+        "mongodb.hosts" : "mongodb://user:password@cluster0-shard-00-00.dvrwh.mongodb.net:27017,cluster0-shard-00-01.dvrwh.mongodb.net:27017,cluster0-shard-00-02.dvrwh.mongodb.net:27017/?replicaSet=atlas-f9g4w7-shard-0&authSource=admin&retryWrites=true&w=majority",
+        "mongodb.ssl.enabled": true,
+        "mongodb.name" : "dbserver1",
+        "mongodb.user" : "user",
+        "mongodb.password" : "password",
+        "database.include.list" : "foo",
+        "collection.include.list": "foo.bar2",
+        "database.history.kafka.bootstrap.servers" : "kafka:9092",
+        "transforms" : "outbox",
+        "transforms.outbox.type" : "io.debezium.connector.mongodb.transforms.outbox.MongoEventRouter",
+        "transforms.outbox.route.topic.replacement" : "${routedByValue}.events",
+        "transforms.outbox.collection.expand.json.payload" : "true",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.storage.StringConverter"
+    }
+}
