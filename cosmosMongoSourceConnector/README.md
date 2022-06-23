@@ -1,4 +1,4 @@
-# Slow Start
+# Uses this fork of Mongo Source Connector - https://github.com/LeonardoBonacci/mongo-kafka
 
 ```
 curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @source-connector.json
