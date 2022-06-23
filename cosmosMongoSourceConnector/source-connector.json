@@ -1,0 +1,15 @@
+{
+  "name": "cosmos-mongo-source",
+  "config": {
+    "connector.class":"com.mongodb.kafka.connect.MongoSourceConnector",
+    "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": false,
+    "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": false,
+    "connection.uri": "mongodb://user:password==@abc.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@abc@",
+    "database":"foo",
+    "collection":"bar",
+    "publish.full.document.only": true,
+    "pipeline": "[{$match:{\"operationType\":{$in:[\"insert\",\"update\",\"replace\"]}}},{$project:{\"_id\":1,\"fullDocument\":1,\"ns\":1,\"documentKey\":1}}]"
+  }
+}
